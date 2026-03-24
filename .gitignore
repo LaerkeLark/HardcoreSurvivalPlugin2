@@ -1,0 +1,10 @@
+.classpath
+.project
+.settings/
+bin/
+target/
+*.class
+*.log
+*.iml
+lib/*.jar
+src-com-example-backup-*.zip
