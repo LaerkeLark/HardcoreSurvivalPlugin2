@@ -1,0 +1,12 @@
+name: HardcoreSurvivalPlugin2
+version: ${project.version}
+main: com.example.hardcoresurvival.HardcoreSurvivalPlugin
+api-version: 1.20
+description: Hardcore Survival tweaks – configurable growth rates, animal timings, and ore generation.
+authors: [ LaerkeLark ]
+
+commands:
+  hardcoresurvival:
+    description: HardcoreSurvivalPlugin root command.
+    aliases: [ hsp ]
+    usage: /hardcoresurvival reload
