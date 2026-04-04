@@ -1,0 +1,103 @@
+# ============================================================
+#  HardcoreSurvivalPlugin2 – Configuration
+# ============================================================
+#
+#  All percentage values are integers in the range 0–100.
+#  100 = vanilla behaviour (no change).
+#  Values below 100 make the feature harder / slower.
+#  Values above 100 are clamped to 100 on load.
+#
+#  Reload in-game with:  /hardcoresurvival reload
+# ============================================================
+
+# ------------------------------------------------------------
+#  GROWTH RATES
+#
+#  Each entry is the probability (%) that a scheduled growth
+#  tick is actually allowed to advance the plant one stage.
+#  100 % = vanilla speed.  50 % = half speed.  0 % = frozen.
+# ------------------------------------------------------------
+growth:
+
+  # ── Crops ──────────────────────────────────────────────────
+  crops:
+    # Overworld crops
+    WHEAT:            100
+    CARROTS:          100
+    POTATOES:         100
+    BEETROOTS:        100
+    MELON_STEM:       100
+    PUMPKIN_STEM:     100
+    SWEET_BERRY_BUSH: 100
+    BAMBOO:           100
+    CACTUS:           100
+    SUGAR_CANE:       100
+    KELP:             100
+    # Nether crops
+    NETHER_WART:      100
+
+  # ── Saplings ───────────────────────────────────────────────
+  saplings:
+    OAK_SAPLING:       100
+    SPRUCE_SAPLING:    100
+    BIRCH_SAPLING:     100
+    JUNGLE_SAPLING:    100
+    ACACIA_SAPLING:    100
+    DARK_OAK_SAPLING:  100
+    CHERRY_SAPLING:    100
+    MANGROVE_PROPAGULE: 100
+    AZALEA:            100
+    FLOWERING_AZALEA:  100
+
+# ------------------------------------------------------------
+#  ANIMAL TIMINGS
+#
+#  grow_up_modifier
+#    Percentage of vanilla grow-up speed.
+#    100 % = vanilla (20 min).  50 % = twice as long (40 min).
+#    200 % = half the vanilla time (10 min).
+#
+#  breed_cooldown_modifier
+#    Percentage of the vanilla breed cooldown (5 min).
+#    100 % = vanilla.  200 % = 10 min wait between breeds.
+#    Values below 100 % cannot reduce below the vanilla floor
+#    without server-internals access.
+# ------------------------------------------------------------
+animals:
+  grow_up_modifier:        100
+  breed_cooldown_modifier: 100
+
+# ------------------------------------------------------------
+#  ORE GENERATION
+#
+#  Each entry is the percentage of ore blocks that are KEPT
+#  when a new chunk is first generated.
+#  100 % = vanilla amount.  50 % = roughly half the ores.
+#  0 % = that ore is removed entirely from new chunks.
+#
+#  Note: only chunks generated AFTER the plugin is installed
+#  are affected.  Already-generated chunks are not changed.
+# ------------------------------------------------------------
+ores:
+  # Overworld – stone layer
+  COAL_ORE:              100
+  IRON_ORE:              100
+  COPPER_ORE:            100
+  GOLD_ORE:              100
+  LAPIS_ORE:             100
+  REDSTONE_ORE:          100
+  DIAMOND_ORE:           100
+  EMERALD_ORE:           100
+  # Overworld – deepslate layer (y < 0)
+  DEEPSLATE_COAL_ORE:    100
+  DEEPSLATE_IRON_ORE:    100
+  DEEPSLATE_COPPER_ORE:  100
+  DEEPSLATE_GOLD_ORE:    100
+  DEEPSLATE_LAPIS_ORE:   100
+  DEEPSLATE_REDSTONE_ORE: 100
+  DEEPSLATE_DIAMOND_ORE: 100
+  DEEPSLATE_EMERALD_ORE: 100
+  # Nether
+  NETHER_QUARTZ_ORE:     100
+  NETHER_GOLD_ORE:       100
+  ANCIENT_DEBRIS:        100
