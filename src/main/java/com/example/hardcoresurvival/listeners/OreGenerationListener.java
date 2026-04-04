@@ -9,6 +9,8 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.world.ChunkLoadEvent;
 
+import java.util.EnumMap;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -36,8 +38,30 @@ public class OreGenerationListener implements Listener {
     private final HardcoreSurvivalPlugin plugin;
     private final Random random = new Random();
 
+    /**
+     * Cache of ore-material → keep-rate % built once per config load.
+     * Only entries with rate < 100 are stored; materials absent from this map
+     * are treated as 100 % (vanilla).
+     */
+    private final Map<Material, Integer> oreRateCache = new EnumMap<>(Material.class);
+
     public OreGenerationListener(HardcoreSurvivalPlugin plugin) {
         this.plugin = plugin;
+        refreshCache();
+    }
+
+    /**
+     * Rebuilds the local ore-rate cache from the current plugin configuration.
+     * Call this after a config reload.
+     */
+    public void refreshCache() {
+        oreRateCache.clear();
+        for (Material mat : Material.values()) {
+            int rate = plugin.getHardcoreConfig().getOreRate(mat);
+            if (rate < 100) {
+                oreRateCache.put(mat, rate);
+            }
+        }
     }
 
     // -----------------------------------------------------------------------
@@ -67,8 +91,14 @@ public class OreGenerationListener implements Listener {
      * Scans every block in the chunk, and for ore blocks that have a
      * configured keep-rate below 100 %, randomly replaces them with the
      * appropriate stone-type replacement.
+     *
+     * <p>Uses the local {@link #oreRateCache} to avoid repeated config lookups
+     * for the tens-of-thousands of blocks in each chunk.
      */
     private void processNewChunk(Chunk chunk) {
+        if (oreRateCache.isEmpty()) {
+            return; // all ores at vanilla rates – nothing to do
+        }
         int minY = chunk.getWorld().getMinHeight();
         int maxY = chunk.getWorld().getMaxHeight();
 
@@ -78,9 +108,9 @@ public class OreGenerationListener implements Listener {
                     Block block = chunk.getBlock(x, y, z);
                     Material material = block.getType();
 
-                    int rate = plugin.getPluginConfig2().getOreRate(material);
-                    if (rate >= 100) {
-                        continue; // vanilla – keep block
+                    Integer rate = oreRateCache.get(material);
+                    if (rate == null) {
+                        continue; // not configured (vanilla)
                     }
                     if (rate <= 0 || random.nextInt(100) >= rate) {
                         block.setType(getReplacementMaterial(material));

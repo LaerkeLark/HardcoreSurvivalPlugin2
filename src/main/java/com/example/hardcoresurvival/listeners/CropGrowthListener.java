@@ -42,7 +42,7 @@ public class CropGrowthListener implements Listener {
     @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
     public void onBlockGrow(BlockGrowEvent event) {
         Material material = event.getBlock().getType();
-        int rate = plugin.getPluginConfig2().getCropGrowthRate(material);
+        int rate = plugin.getHardcoreConfig().getCropGrowthRate(material);
         if (shouldCancelGrowth(rate)) {
             event.setCancelled(true);
         }
@@ -61,7 +61,7 @@ public class CropGrowthListener implements Listener {
     @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
     public void onStructureGrow(StructureGrowEvent event) {
         Material saplingMaterial = event.getLocation().getBlock().getType();
-        int rate = plugin.getPluginConfig2().getSaplingGrowthRate(saplingMaterial);
+        int rate = plugin.getHardcoreConfig().getSaplingGrowthRate(saplingMaterial);
         if (shouldCancelGrowth(rate)) {
             event.setCancelled(true);
         }

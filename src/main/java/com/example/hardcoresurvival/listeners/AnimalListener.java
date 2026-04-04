@@ -13,6 +13,7 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.EquipmentSlot;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.UUID;
 
@@ -63,13 +64,34 @@ public class AnimalListener implements Listener {
     /**
      * Tracks the system-time (ms) after which an entity is allowed to
      * enter love mode again, keyed by the entity's UUID.
-     * Entries are naturally evicted when animals die / despawn because
-     * their UUID will no longer be looked up.
+     * Stale entries (where the cooldown has already expired) are pruned
+     * periodically by a scheduled task started in the constructor.
      */
     private final Map<UUID, Long> breedCooldownExpiry = new HashMap<>();
 
+    /** How often (in ticks) to sweep the cooldown map for expired entries. */
+    private static final long CLEANUP_INTERVAL_TICKS = 6000L; // every 5 minutes
+
     public AnimalListener(HardcoreSurvivalPlugin plugin) {
         this.plugin = plugin;
+        // Schedule periodic cleanup to remove stale cooldown entries
+        plugin.getServer().getScheduler().runTaskTimer(plugin, this::cleanupExpiredCooldowns,
+                CLEANUP_INTERVAL_TICKS, CLEANUP_INTERVAL_TICKS);
+    }
+
+    /**
+     * Removes all entries from {@link #breedCooldownExpiry} whose expiry
+     * time is in the past.  Called periodically to prevent unbounded growth
+     * of the map.
+     */
+    private void cleanupExpiredCooldowns() {
+        long now = System.currentTimeMillis();
+        Iterator<Map.Entry<UUID, Long>> it = breedCooldownExpiry.entrySet().iterator();
+        while (it.hasNext()) {
+            if (it.next().getValue() <= now) {
+                it.remove();
+            }
+        }
     }
 
     // -----------------------------------------------------------------------
@@ -84,7 +106,7 @@ public class AnimalListener implements Listener {
     @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
     public void onEntityBreed(EntityBreedEvent event) {
         // --- Modify baby grow-up time ---
-        int growUpModifier = plugin.getPluginConfig2().getAnimalGrowUpModifier();
+        int growUpModifier = plugin.getHardcoreConfig().getAnimalGrowUpModifier();
         if (growUpModifier > 0 && growUpModifier != 100) {
             Entity babyEntity = event.getEntity();
             // Schedule one tick later to ensure the entity has fully spawned
@@ -97,7 +119,7 @@ public class AnimalListener implements Listener {
         }
 
         // --- Record custom breed cooldown for both parents ---
-        int cooldownModifier = plugin.getPluginConfig2().getAnimalBreedCooldownModifier();
+        int cooldownModifier = plugin.getHardcoreConfig().getAnimalBreedCooldownModifier();
         if (cooldownModifier != 100) {
             long customCooldownMs = (long) (VANILLA_BREED_COOLDOWN_TICKS
                     * (cooldownModifier / 100.0) * MS_PER_TICK);
@@ -132,7 +154,7 @@ public class AnimalListener implements Listener {
             return;
         }
 
-        int cooldownModifier = plugin.getPluginConfig2().getAnimalBreedCooldownModifier();
+        int cooldownModifier = plugin.getHardcoreConfig().getAnimalBreedCooldownModifier();
         // Only act if the cooldown is longer than vanilla (shorter values
         // cannot be enforced here without NMS)
         if (cooldownModifier <= 100) {

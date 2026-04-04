@@ -9,6 +9,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class HardcoreSurvivalPlugin extends JavaPlugin {
 
     private PluginConfig pluginConfig;
+    private OreGenerationListener oreGenerationListener;
 
     @Override
     public void onEnable() {
@@ -17,7 +18,8 @@ public class HardcoreSurvivalPlugin extends JavaPlugin {
 
         getServer().getPluginManager().registerEvents(new CropGrowthListener(this), this);
         getServer().getPluginManager().registerEvents(new AnimalListener(this), this);
-        getServer().getPluginManager().registerEvents(new OreGenerationListener(this), this);
+        this.oreGenerationListener = new OreGenerationListener(this);
+        getServer().getPluginManager().registerEvents(oreGenerationListener, this);
 
         getCommand("hardcoresurvival").setExecutor(new HardcoreSurvivalCommand(this));
 
@@ -30,18 +32,22 @@ public class HardcoreSurvivalPlugin extends JavaPlugin {
     }
 
     /**
-     * Returns the plugin's custom configuration wrapper.
+     * Returns the plugin's hardcore-survival configuration wrapper.
      */
-    public PluginConfig getPluginConfig2() {
+    public PluginConfig getHardcoreConfig() {
         return pluginConfig;
     }
 
     /**
-     * Reloads the plugin configuration from disk.
+     * Reloads the plugin configuration from disk and refreshes all listener
+     * caches that depend on the config.
      */
     public void reloadPluginConfig() {
         reloadConfig();
         pluginConfig.load();
+        if (oreGenerationListener != null) {
+            oreGenerationListener.refreshCache();
+        }
         getLogger().info("HardcoreSurvivalPlugin configuration reloaded.");
     }
 }
