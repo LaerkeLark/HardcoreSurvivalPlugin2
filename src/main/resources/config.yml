@@ -1,0 +1,70 @@
+# HardcoreSurvivalPlugin2 Configuration
+#
+# Growth rates are expressed as a percentage of normal speed.
+#   100  = normal vanilla growth speed
+#    50  = half speed (takes twice as long)
+#   200  = double speed (not currently supported – capped at 100)
+#     0  = crops/saplings never grow naturally
+#
+# Each crop/sapling is identified by its Bukkit Material name (case-insensitive).
+# You may add or remove entries; unlisted types use vanilla behaviour.
+
+growth:
+  crops:
+    # Overworld crops
+    wheat: 100
+    carrots: 100
+    potatoes: 100
+    beetroots: 100
+    melon_stem: 100
+    pumpkin_stem: 100
+    cocoa: 100
+    sweet_berry_bush: 100
+    # Nether crops
+    nether_wart: 100
+    # Aquatic / underground
+    kelp: 100
+    bamboo: 100
+    cave_vines: 100
+    cave_vines_plant: 100
+
+  saplings:
+    oak_sapling: 100
+    spruce_sapling: 100
+    birch_sapling: 100
+    jungle_sapling: 100
+    acacia_sapling: 100
+    dark_oak_sapling: 100
+    cherry_sapling: 100
+    mangrove_propagule: 100
+    azalea: 100
+
+# Ore spawn rates are expressed as a percentage of vanilla spawning.
+#   100  = normal vanilla ore density
+#    50  = half as many ores generate
+#     0  = no ores of this type generate
+#
+# Overworld entries apply to both the regular and deepslate variants of each ore.
+# Nether entries apply to the specific nether ore block listed.
+
+ores:
+  overworld:
+    coal: 100         # COAL_ORE + DEEPSLATE_COAL_ORE
+    iron: 100         # IRON_ORE + DEEPSLATE_IRON_ORE
+    copper: 100       # COPPER_ORE + DEEPSLATE_COPPER_ORE
+    gold: 100         # GOLD_ORE + DEEPSLATE_GOLD_ORE
+    redstone: 100     # REDSTONE_ORE + DEEPSLATE_REDSTONE_ORE
+    lapis: 100        # LAPIS_ORE + DEEPSLATE_LAPIS_ORE
+    diamond: 100      # DIAMOND_ORE + DEEPSLATE_DIAMOND_ORE
+    emerald: 100      # EMERALD_ORE + DEEPSLATE_EMERALD_ORE
+
+  nether:
+    nether_quartz: 100  # NETHER_QUARTZ_ORE
+    nether_gold: 100    # NETHER_GOLD_ORE
+    ancient_debris: 100 # ANCIENT_DEBRIS
+
+# Seed mechanics
+seeds:
+  # Chance (0-100) to receive one wheat seed when right-clicking a grass block
+  # with any hoe. This is in addition to the normal hoe behaviour (grass -> farmland).
+  hoe_grass_chance: 10

@@ -1,0 +1,16 @@
+name: HardcoreSurvivalPlugin2
+version: '${project.version}'
+main: com.hardcoresurvival.HardcoreSurvivalPlugin
+api-version: '1.20'
+description: Hardcore Survival plugin with configurable growth rates, ore spawn rates, and seed mechanics
+
+commands:
+  hsp2reload:
+    description: Reload the HardcoreSurvivalPlugin2 configuration
+    usage: /hsp2reload
+    permission: hardcoresurvival.reload
+
+permissions:
+  hardcoresurvival.reload:
+    description: Allows reloading the plugin configuration
+    default: op
