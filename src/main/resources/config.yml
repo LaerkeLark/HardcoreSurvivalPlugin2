@@ -1,0 +1,210 @@
+# ============================================================
+#   HardcoreSurvivalPlugin2 – Configuration
+# ============================================================
+#
+# All percentage values work as follows:
+#
+#   0   = no change from vanilla behaviour
+#   50  = 50 % harder / slower / rarer  (e.g. half as many ores)
+#   100 = effect is doubled compared to vanilla
+#   200 = effect is tripled compared to vanilla
+#
+# Values above 100 are valid for growth / breeding settings.
+# For ore-reduction, values are clamped to 100 (cannot remove more than 100 %).
+# ============================================================
+
+
+# ------------------------------------------------------------------
+# ORE REDUCTION
+# ------------------------------------------------------------------
+# Percentage of each ore type that will be replaced with its host
+# stone after a chunk generates.
+# Range: 0 (no change) – 100 (remove all ore blocks of that type).
+# ------------------------------------------------------------------
+ore-reduction:
+  enabled: true
+
+  # Overworld ores (applies to both stone and deepslate variants)
+  coal_ore:      50   # 50 % fewer coal ore blocks
+  iron_ore:      30
+  gold_ore:      30
+  diamond_ore:   40
+  emerald_ore:   40
+  lapis_ore:     30
+  redstone_ore:  30
+  copper_ore:    30
+
+  # Nether ores
+  nether_quartz_ore: 30
+  nether_gold_ore:   30
+  ancient_debris:    20
+
+
+# ------------------------------------------------------------------
+# CROP GROWTH SLOWDOWN
+# ------------------------------------------------------------------
+# Percentage of random-tick growth attempts to cancel for each crop.
+# A value of 50 means half the growth ticks are suppressed,
+# effectively doubling average growth time.
+# Range: 0 (vanilla) – 100 (crops never grow without bone meal).
+# ------------------------------------------------------------------
+crop-growth-slowdown:
+  enabled: true
+
+  wheat:          50   # doubles average wheat growth time
+  carrots:        50
+  potatoes:       50
+  beetroots:      50
+  nether_wart:    50
+  melon_stem:     50
+  pumpkin_stem:   50
+  sugar_cane:     50
+  cactus:         50
+  kelp:           50
+  sweet_berry_bush: 50
+  bamboo:         50
+  torchflower:    50
+  pitcher_crop:   50
+
+
+# ------------------------------------------------------------------
+# SAPLING GROWTH SLOWDOWN
+# ------------------------------------------------------------------
+# Same mechanic as crop growth.  Bone-meal usage bypasses this check.
+# Range: 0 (vanilla) – 100 (saplings never grow on their own).
+# ------------------------------------------------------------------
+sapling-growth-slowdown:
+  enabled: true
+
+  oak_sapling:        66   # ~3× vanilla grow time
+  spruce_sapling:     66
+  birch_sapling:      66
+  jungle_sapling:     66
+  acacia_sapling:     66
+  dark_oak_sapling:   66
+  cherry_sapling:     66
+  mangrove_propagule: 66
+  azalea:             66
+  flowering_azalea:   66
+  brown_mushroom:     50
+  red_mushroom:       50
+
+
+# ------------------------------------------------------------------
+# ANIMAL BREEDING
+# ------------------------------------------------------------------
+# Two settings per animal:
+#
+#   breed-cooldown-increase:
+#     Extra percentage added on top of the vanilla 5-minute (6 000 tick)
+#     cooldown before the animal can breed again.
+#     0 = vanilla, 100 = 10 minutes, 200 = 15 minutes, etc.
+#
+#   grow-up-time-increase:
+#     Extra percentage added on top of the vanilla 20-minute (24 000 tick)
+#     grow-up time for baby animals.
+#     0 = vanilla, 100 = 40 minutes, 200 = 60 minutes, etc.
+# ------------------------------------------------------------------
+animal-breeding:
+  enabled: true
+
+  animals:
+    cow:
+      breed-cooldown-increase: 100   # 10-minute cooldown (double)
+      grow-up-time-increase:   100   # 40-minute grow-up (double)
+
+    sheep:
+      breed-cooldown-increase: 100
+      grow-up-time-increase:   100
+
+    pig:
+      breed-cooldown-increase: 100
+      grow-up-time-increase:   100
+
+    chicken:
+      breed-cooldown-increase: 100
+      grow-up-time-increase:   100
+
+    rabbit:
+      breed-cooldown-increase: 100
+      grow-up-time-increase:   100
+
+    horse:
+      breed-cooldown-increase: 200   # 15-minute cooldown (triple)
+      grow-up-time-increase:   200   # 60-minute grow-up (triple)
+
+    donkey:
+      breed-cooldown-increase: 200
+      grow-up-time-increase:   200
+
+    mule:
+      breed-cooldown-increase: 200
+      grow-up-time-increase:   200
+
+    llama:
+      breed-cooldown-increase: 200
+      grow-up-time-increase:   200
+
+    wolf:
+      breed-cooldown-increase: 100
+      grow-up-time-increase:   100
+
+    cat:
+      breed-cooldown-increase: 100
+      grow-up-time-increase:   100
+
+    fox:
+      breed-cooldown-increase: 100
+      grow-up-time-increase:   100
+
+    bee:
+      breed-cooldown-increase: 100
+      grow-up-time-increase:   100
+
+    turtle:
+      breed-cooldown-increase: 100
+      grow-up-time-increase:   100
+
+    panda:
+      breed-cooldown-increase: 200
+      grow-up-time-increase:   200
+
+    polar_bear:
+      breed-cooldown-increase: 200
+      grow-up-time-increase:   200
+
+    mooshroom:
+      breed-cooldown-increase: 100
+      grow-up-time-increase:   100
+
+    goat:
+      breed-cooldown-increase: 100
+      grow-up-time-increase:   100
+
+    axolotl:
+      breed-cooldown-increase: 100
+      grow-up-time-increase:   100
+
+    frog:
+      breed-cooldown-increase: 100
+      grow-up-time-increase:   100
+
+    camel:
+      breed-cooldown-increase: 200
+      grow-up-time-increase:   200
+
+    sniffer:
+      breed-cooldown-increase: 200
+      grow-up-time-increase:   200
+
+    strider:
+      breed-cooldown-increase: 100
+      grow-up-time-increase:   100
+
+    hoglin:
+      breed-cooldown-increase: 100
+      grow-up-time-increase:   100
+
+    ocelot:
+      breed-cooldown-increase: 100
+      grow-up-time-increase:   100
