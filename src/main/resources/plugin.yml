@@ -1,0 +1,20 @@
+name: HardcoreSurvivalPlugin2
+version: '${project.version}'
+main: com.laerkelark.hardcoresurvival2.HardcoreSurvivalPlugin
+api-version: '1.20'
+description: >
+  Hardcore Survival Plugin 2 – configurable ore reduction, crop/sapling growth
+  slowdown, and animal breeding difficulty increases.
+authors:
+  - LaerkeLark
+
+commands:
+  hsp:
+    description: HardcoreSurvivalPlugin2 management command.
+    usage: /hsp reload
+    permission: hsp.admin
+
+permissions:
+  hsp.admin:
+    description: Allows managing HardcoreSurvivalPlugin2.
+    default: op
